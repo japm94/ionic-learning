@@ -12,7 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FeedPageModule } from '../pages/feed/feed.module';
 import { IntroPageModule } from '../pages/intro/intro.module';
-import { MovieProvider } from '../providers/movie/movie';
+import { PhotoProvider } from '../providers/photo/photo';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -41,8 +41,11 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    MovieProvider
+    {
+      provide: ErrorHandler,
+      useClass: IonicErrorHandler
+    },
+
   ]
 })
 export class AppModule { }

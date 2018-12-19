@@ -33,12 +33,12 @@ export class FeedPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private movieProvider: PhotoProvider,
+    private photoProvider: PhotoProvider,
   ) {
   }
 
   ionViewDidLoad() {
-    this.movieProvider.getPopularMovies().subscribe(
+    this.photoProvider.getPopularMovies().subscribe(
       data => {
         const response = (data as any);
         this.photos_list = response.data
