@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MovieProvider } from '../../providers/movie/movie';
+import { PhotoProvider } from '../../providers/photo/photo';
 
 /**
  * Generated class for the FeedPage page.
@@ -14,7 +14,7 @@ import { MovieProvider } from '../../providers/movie/movie';
   selector: 'page-feed',
   templateUrl: 'feed.html',
   providers: [
-    MovieProvider,
+    PhotoProvider,
   ]
 })
 export class FeedPage {
@@ -28,12 +28,12 @@ export class FeedPage {
     time_comment: "11h ago"
   }
 
-  public movies_list = new Array<any>();
+  public photos_list = new Array<any>();
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private movieProvider: MovieProvider,
+    private movieProvider: PhotoProvider,
   ) {
   }
 
@@ -41,8 +41,8 @@ export class FeedPage {
     this.movieProvider.getPopularMovies().subscribe(
       data => {
         const response = (data as any);
-        this.movies_list = response.results
-        console.log(response.results);
+        this.photos_list = response.data
+        console.log(response.data);
       },
       error => {
         console.log(error);

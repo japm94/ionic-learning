@@ -15,22 +15,22 @@
 <ion-content padding>
   
   <!--*ngFor serve pra carregar dinamicamente os retorno da api-->
-  <ion-card *ngFor= "let movie of movies_list">
+  <ion-card *ngFor= "let photo of photos_list">
 
     <ion-item>
       <ion-avatar item-start>
-        <img src="img/marty-avatar.png">
+        <img [src]="photo.user.profile_picture">
       </ion-avatar>
-      <h2>{{ movie.title }}</h2>
-      <p>{{ movie.release_date }}</p>
+      <h2>{{ photo.user.full_name }}</h2>
+      <p>{{ photo.created_time }}</p>
     </ion-item>
 
     <!--Ao setar movie por bind ([] <- Isso é bind) não precisa de interpolação-->
-    <img [src]="'https://image.tmdb.org/t/p/w300' + movie.backdrop_path">
+    <img [src]="photo.images.standard_resolution.url">
 
     <ion-card-content>
       <p>
-        {{ movie.overview }}
+        {{ photo.caption.text }}
       </p>
     </ion-card-content>
 
@@ -38,8 +38,19 @@
       <ion-col>
         <button ion-button icon-start clear small>
           <ion-icon name="thumbs-up"></ion-icon>
-          <div>{{ movie.vote_count }} Votes</div>
+          <div>{{ photo.likes.count }} Linkes</div>
         </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>{{ photo.comments.count }} Comments</div>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          11h ago
+        </ion-note>
       </ion-col>
     </ion-row>
 
