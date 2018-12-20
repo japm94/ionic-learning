@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { PhotoProvider } from '../../providers/photo/photo';
 
 /**
@@ -19,33 +19,39 @@ import { PhotoProvider } from '../../providers/photo/photo';
 })
 export class FeedPage {
 
-  public objeto_feed = {
-    titulo: "Marty McFly",
-    data: "November 5, 1955",
-    descricao: "Wait a minute. Wait a minute, Doc. Uhh...",
-    qntd_likes: 12,
-    qntd_comments: 4,
-    time_comment: "11h ago"
-  }
-
   public photos_list = new Array<any>();
+  public loader;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private photoProvider: PhotoProvider,
+    public loadingCtrl: LoadingController
   ) {
   }
 
+  presentLoading() {
+    this.loader = this.loadingCtrl.create({
+    });
+    this.loader.present();
+  }
+
+  closeLoading() {
+    this.loader.dismiss();
+  }
+
   ionViewDidLoad() {
+    this.presentLoading();
     this.photoProvider.getPopularMovies().subscribe(
       data => {
         const response = (data as any);
         this.photos_list = response.data
         console.log(response.data);
+        this.closeLoading();
       },
       error => {
         console.log(error);
+        this.closeLoading();
       }
     )
   }
