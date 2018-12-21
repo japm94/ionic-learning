@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { PhotoProvider } from '../../providers/photo/photo';
+import { MovieProvider } from '../../providers/movie/movie';
+import { MovieDetailPage } from '../movie-detail/movie-detail';
+
 
 /**
  * Generated class for the FeedPage page.
@@ -14,20 +16,27 @@ import { PhotoProvider } from '../../providers/photo/photo';
   selector: 'page-feed',
   templateUrl: 'feed.html',
   providers: [
-    PhotoProvider,
+    MovieProvider,
   ]
 })
 export class FeedPage {
 
-  public photos_list = new Array<any>();
+  public movies_list = new Array<any>();
   public loader;
+  public refresher;
+  public isRefreshing: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private photoProvider: PhotoProvider,
+    private movieProvider: MovieProvider,
     public loadingCtrl: LoadingController
   ) {
+  }
+
+  openDetail(movie){
+    console.log(movie)
+    this.navCtrl.push(MovieDetailPage, { id: movie.id });
   }
 
   presentLoading() {
@@ -40,17 +49,26 @@ export class FeedPage {
     this.loader.dismiss();
   }
 
-  ionViewDidLoad() {
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
+
+  ionViewDidEnter() {
     this.presentLoading();
-    this.photoProvider.getPopularMovies().subscribe(
+    this.movieProvider.getPopularMovies().subscribe(
       data => {
         const response = (data as any);
-        this.photos_list = response.data
-        console.log(response.data);
+        this.movies_list = response.results;
+        console.log(response.results)
         this.closeLoading();
       },
       error => {
-        console.log(error);
+        console.log(error)
         this.closeLoading();
       }
     )

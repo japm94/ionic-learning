@@ -6,12 +6,6 @@ let config_key_name: string = "config"
 @Injectable()
 export class ConfigProvider {
 
-  private config = {
-    showSlide: false,
-    name: "",
-    username: ""
-  }
-
   constructor() {
 
   }

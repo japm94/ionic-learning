@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { AboutPageModule } from '../pages/about/about.module';
 import { PerfilPageModule } from '../pages/perfil/perfil.module';
+import { MovieDetailPageModule } from '../pages/movie-detail/movie-detail.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PerfilPageModule } from '../pages/perfil/perfil.module';
     HttpClientModule,
     SettingsPageModule,
     AboutPageModule,
-    PerfilPageModule
+    PerfilPageModule,
+    MovieDetailPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
