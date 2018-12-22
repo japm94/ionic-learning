@@ -25,6 +25,8 @@ export class FeedPage {
   public loader;
   public refresher;
   public isRefreshing: boolean = false;
+  public page = 1;
+  public infiniteScroll;
 
   constructor(
     public navCtrl: NavController,
@@ -34,9 +36,15 @@ export class FeedPage {
   ) {
   }
 
-  openDetail(movie){
+  openDetail(movie) {
     console.log(movie)
     this.navCtrl.push(MovieDetailPage, { id: movie.id });
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.infiniteScroll = infiniteScroll;
+    this.loadingMovies(true);
   }
 
   presentLoading() {
@@ -58,13 +66,20 @@ export class FeedPage {
     }, 2000);
   }
 
-  ionViewDidEnter() {
+  loadingMovies(newpage: boolean = false) {
     this.presentLoading();
-    this.movieProvider.getPopularMovies().subscribe(
+    this.movieProvider.getPopularMovies(this.page).subscribe(
       data => {
         const response = (data as any);
-        this.movies_list = response.results;
-        console.log(response.results)
+        if (newpage) {
+          this.movies_list = this.movies_list.concat(response.results);
+          console.log(this.movies_list);
+          this.infiniteScroll.complete(); 
+        } else {
+          this.movies_list = response.results;
+          console.log(response.results)
+        }
+
         this.closeLoading();
       },
       error => {
@@ -72,6 +87,10 @@ export class FeedPage {
         this.closeLoading();
       }
     )
+  }
+
+  ionViewDidEnter() {
+    this.loadingMovies();
   }
 
 }
