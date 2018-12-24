@@ -8,22 +8,25 @@ function categoryController() {
 }
 
 categoryController.prototype.get = async (req, res) => {
-    res.status(200).send('It`s working');
+    return category.find();
 };
 
 categoryController.prototype.getById = async (req, res) => {
-    res.status(200).send(`O ID passado foi ${req.params.id}`);
+    return category.findById(req.params.id);
 };
 
 categoryController.prototype.post = async (req, res) => {
-    
+    let post = new category(req.body);
+    return post.save();
 };
 
 categoryController.prototype.put = async (req, res) => {
-
+    await category.findByIdAndUpdate(req.params.id, { $set: req.body });
+    return category.findById(req.params.id);
 };
 
 categoryController.prototype.delete = async (req, res) => {
+    return category.findByIdAndRemove(req.params.id);
 
 };
 
