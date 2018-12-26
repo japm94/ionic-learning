@@ -1,4 +1,3 @@
-
 require('../models/product-model');
 const BaseRepository = require('../bin/base/repository-base');
 

@@ -6,6 +6,7 @@ const variables = require('../bin/config/variables');
 //ROUTERS
 const categoryRouter = require('../routes/category-router');
 const productRouter = require('../routes/product-router');
+const userRouter = require('../routes/user-router');
 
 //CREATING API (SERVER WEB)
 const app = express();
@@ -21,5 +22,6 @@ mongoose.connect(variables.db.connection, { useNewUrlParser: true });
 //ROUTERS SETTINGS
 app.use('/api/category', categoryRouter);
 app.use('/api/product', productRouter);
+app.use('/api/user', userRouter);
 
 module.exports = app;
