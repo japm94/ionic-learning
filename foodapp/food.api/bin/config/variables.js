@@ -4,7 +4,7 @@ const variables = {
     },
 
     db: {
-        connection: process.env.connection || '<< MONGO URL >>'
+        connection: process.env.connection || '<< MONGO URI >>'
     }
 }
 
