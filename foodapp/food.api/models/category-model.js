@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const categoryModel = new schema({
+const categoryModel = new Schema({
     title: { trim: true, index: true, required: true, type: String },
     description: { type: String },
     photo: { type: String, required: true },

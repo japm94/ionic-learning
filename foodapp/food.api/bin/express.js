@@ -15,7 +15,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // SETTINGS TO CONNECT TO DB
-mongoose.connect(variables.db.connection);
+mongoose.set('useCreateIndex', true)
+mongoose.connect(variables.db.connection, { useNewUrlParser: true });
 
 //ROUTERS SETTINGS
 app.use('/api/category', categoryRouter);

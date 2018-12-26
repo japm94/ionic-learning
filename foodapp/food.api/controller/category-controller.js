@@ -3,6 +3,7 @@
 require('../models/category-model');
 const mongoose = require('mongoose');
 const category = mongoose.model('Category');
+const repository = require('../repositories/category-repository');
 
 function categoryController() {
 
@@ -15,7 +16,7 @@ categoryController.prototype.get = async (req, res) => {
 
 categoryController.prototype.getById = async (req, res) => {
     let result = await category.findById(req.params.id);
-    return res.status(200).send(result);
+    res.status(200).send(result);
 };
 
 categoryController.prototype.post = async (req, res) => {
@@ -31,8 +32,8 @@ categoryController.prototype.put = async (req, res) => {
 };
 
 categoryController.prototype.delete = async (req, res) => {
-    let deleted = await category.findByIdAndRemove(req.params.id);
-    return res.status(204).send('Deleted');
+    await category.findByIdAndRemove(req.params.id);
+    res.status(204).send('Deleted');
 
 };
 
