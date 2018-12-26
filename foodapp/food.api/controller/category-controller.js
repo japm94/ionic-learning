@@ -1,5 +1,6 @@
 'user strict'
 
+require('../models/category-model');
 const mongoose = require('mongoose');
 const category = mongoose.model('Category');
 
@@ -8,25 +9,30 @@ function categoryController() {
 }
 
 categoryController.prototype.get = async (req, res) => {
-    return category.find();
+    let list = await category.find();
+    res.status(200).send(list);
 };
 
 categoryController.prototype.getById = async (req, res) => {
-    return category.findById(req.params.id);
+    let result = await category.findById(req.params.id);
+    return res.status(200).send(result);
 };
 
 categoryController.prototype.post = async (req, res) => {
     let post = new category(req.body);
-    return post.save();
+    let result = await post.save();
+    res.status(201).send(result);
 };
 
 categoryController.prototype.put = async (req, res) => {
     await category.findByIdAndUpdate(req.params.id, { $set: req.body });
-    return category.findById(req.params.id);
+    let result = category.findById(req.params.id);
+    res.status(202).send(result);
 };
 
 categoryController.prototype.delete = async (req, res) => {
-    return category.findByIdAndRemove(req.params.id);
+    let deleted = await category.findByIdAndRemove(req.params.id);
+    return res.status(204).send('Deleted');
 
 };
 
