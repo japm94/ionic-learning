@@ -4,7 +4,7 @@ const variables = {
     },
 
     db: {
-        connection: process.env.connection || '<< MONGO URI >>'
+        connection: process.env.connection || 'mongodb://admin:admin123@127.0.0.1:27017/foodapp'
     }
 }
 

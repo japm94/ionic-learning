@@ -9,7 +9,7 @@ class RepositoryBase {
     }
 
     async create(data) {
-        let model = new this._model(date);
+        let model = new this._model(data);
         return await model.save();
     }
 
