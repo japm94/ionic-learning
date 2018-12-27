@@ -24,4 +24,5 @@ app.use('/api/category', categoryRouter);
 app.use('/api/product', productRouter);
 app.use('/api/user', userRouter);
 
+// EXPORT API
 module.exports = app;

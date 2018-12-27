@@ -4,6 +4,8 @@ const repository = require('../repositories/user-repository');
 const validation = require('../bin/helpers/validation');
 const ctrlBase = require('../bin/base/controller-base');
 const md5 = require('md5');
+const jwt = require('jsonwebtoken');
+const variables = require('../bin/config/variables');
 
 const _repo = new repository();
 
@@ -53,7 +55,7 @@ userController.prototype.put = async (req, res) => {
     let userEmailExists = await _repo.isEmailExists(req.body.email);
     if (userEmailExists) {
         _validationContract.isTrue(
-            (userEmailExists.nome != undefined) && 
+            (userEmailExists.nome != undefined) &&
             (userEmailExists._id != req.params.id),
             `Email ${req.body.email} already registred`);
     }
@@ -63,6 +65,30 @@ userController.prototype.put = async (req, res) => {
 
 userController.prototype.delete = async (req, res) => {
     ctrlBase.delete(_repo, req, res);
+};
+
+userController.prototype.authenticate = async (req, res) => {
+    let _validationContract = new validation();
+
+    _validationContract.isRequired(req.body.email, 'Enter your email');
+    _validationContract.isEmail(req.body.email, 'Invalid e-mail');
+    _validationContract.isRequired(req.body.password), 'Enter your password';
+
+    if (!_validationContract.isValid()) {
+        res.status(400).send({ message: 'Impossible to complete login', validation: _validationContract.errors() });
+        return;
+    }
+
+    let userFound = await _repo.auth(req.body.email, req.body.password);
+
+    if (userFound) {
+        res.status(200).send({
+            user: userFound,
+            token: jwt.sign({ user: userFound }, variables.security.secretKey)
+        });
+    } else {
+        res.status(404).send({ message: 'User not found' });
+    }
 };
 
 module.exports = userController;
