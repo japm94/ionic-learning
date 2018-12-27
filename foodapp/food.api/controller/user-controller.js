@@ -3,6 +3,8 @@
 const repository = require('../repositories/user-repository');
 const validation = require('../bin/helpers/validation');
 const ctrlBase = require('../bin/base/controller-base');
+
+// Dependencies to generate TOKEN
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const variables = require('../bin/config/variables');
@@ -28,7 +30,7 @@ userController.prototype.post = async (req, res) => {
     _validationContract.isRequired(req.body.name, 'Enter your name');
     _validationContract.isRequired(req.body.email, 'Enter your e-mail');
     _validationContract.isEmail(req.body.email, 'Invalid e-mail');
-    _validationContract.isRequired(req.body.password, 'Invalid password');
+    _validationContract.isRequired(req.body.password, 'Enter your password');
     _validationContract.isRequired(req.body.passwordConfirmation, 'Confirmation password is required');
     _validationContract.isTrue(req.body.password != req.body.passwordConfirmation, 'Password and Confirmation password are different');
 

@@ -3,8 +3,11 @@
 const express = require('express');
 const router = express.Router();
 const Controller = require('../controller/category-controller');
+const auth = require('../middlewares/authentication');
 
 let _ctr = new Controller();
+
+router.use(auth);
 
 router.get('/', _ctr.get);
 router.get('/:id', _ctr.getById);
