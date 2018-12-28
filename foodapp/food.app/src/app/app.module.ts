@@ -5,6 +5,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+import { LoadingProvider } from '../providers/loading/loading';
+import { AlertProvider } from '../providers/alert/alert';
+import { HttpProvider } from '../providers/http/http';
+import { NetworkProvider } from '../providers/network/network';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,11 @@ import { MyApp } from './app.component';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    LoadingProvider,
+    AlertProvider,
+    HttpProvider,
+    NetworkProvider
   ]
 })
 export class AppModule {}
