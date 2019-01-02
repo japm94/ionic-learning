@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Categories</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only></button>
+      <ion-icon name="add"></ion-icon>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content no-padding>
+  <ion-list no-lines>
+    <ion-item *ngFor="let category of list">
+      {{ category.title }}
+    </ion-item>
+  </ion-list>
+</ion-content>
