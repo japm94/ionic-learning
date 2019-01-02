@@ -34,13 +34,16 @@ userController.prototype.post = async (req, res) => {
     _validationContract.isRequired(req.body.passwordConfirmation, 'Confirmation password is required');
     _validationContract.isTrue(req.body.password != req.body.passwordConfirmation, 'Password and Confirmation password are different');
 
-    let userEmailExists = await _repo.isEmailExists(req.body.email);
-    if (userEmailExists) {
-        _validationContract.isTrue((userEmailExists.nome != undefined), `Email ${req.body.email} already registred`);
+    if (req.body.email) {
+        let userEmailExists = await _repo.isEmailExists(req.body.email);
+        if (userEmailExists) {
+            _validationContract.isTrue((userEmailExists.nome != undefined), `Email ${req.body.email} already registred`);
+        }
     }
 
-    req.body.password = md5(req.body.password);
-
+    if(req.body.password){
+        req.body.password = md5(req.body.password);
+    }
     ctrlBase.post(_repo, _validationContract, req, res);
 };
 
@@ -74,7 +77,7 @@ userController.prototype.authenticate = async (req, res) => {
 
     _validationContract.isRequired(req.body.email, 'Enter your email');
     _validationContract.isEmail(req.body.email, 'Invalid e-mail');
-    _validationContract.isRequired(req.body.password), 'Enter your password';
+    _validationContract.isRequired(req.body.password, 'Enter your password');
 
     if (!_validationContract.isValid()) {
         res.status(400).send({ message: 'Impossible to complete login', validation: _validationContract.errors() });
@@ -89,8 +92,8 @@ userController.prototype.authenticate = async (req, res) => {
             token: jwt.sign({ user: userFound }, variables.security.secretKey)
         });
     } else {
-        res.status(404).send({ message: 'User not found' });
+        res.status(404).send({ message: 'Informed e-mail and password are invalid!' });
     }
 };
 
-module.exports = userController;
+module.exports = userController

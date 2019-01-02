@@ -9,6 +9,8 @@ import { LoadingProvider } from '../providers/loading/loading';
 import { AlertProvider } from '../providers/alert/alert';
 import { HttpProvider } from '../providers/http/http';
 import { NetworkProvider } from '../providers/network/network';
+import { UserProvider } from '../providers/user/user';
+import { HttpClientModule } from '@angular/common/http'; 
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { NetworkProvider } from '../providers/network/network';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -29,7 +32,8 @@ import { NetworkProvider } from '../providers/network/network';
     LoadingProvider,
     AlertProvider,
     HttpProvider,
-    NetworkProvider
+    NetworkProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

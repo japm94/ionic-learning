@@ -1,25 +1,25 @@
-<ion-content>
+<ion-content padding class="backImage">
   
     <div class="logo">
       <img src="/assets/imagens/icon-branco.png" alt="">
       <span>FoodApp</span>
     </div>
   
-    <ion-list no-lines>
+    <ion-list no-lines class="list-transparent">
       <ion-item>
-        <ion-input type="text" placeholder="E-mail"></ion-input>
+        <ion-input [(ngModel)]="form.email" type="text" placeholder="E-mail"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="password" placeholder="Password"></ion-input>
+        <ion-input [(ngModel)]="form.password" type="password" placeholder="Password"></ion-input>
       </ion-item>
     </ion-list>
   
     <ion-grid>
       <ion-row>
-        <button ion-button block round (click)="openCategory()" color="secondary">Login</button>
+        <button ion-button block round (click)="login()" color="secondary">Login</button>
       </ion-row>
       <ion-row>
-        <button ion-button block outline round color="secondary">Subscriber</button>
+        <button ion-button block outline round (click)="register()" color="secondary">Subscriber</button>
       </ion-row>
       <ion-row>
         <button ion-button clear block color="light">Manage Accounts</button>

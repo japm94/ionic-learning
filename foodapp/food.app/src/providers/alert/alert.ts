@@ -6,8 +6,7 @@ export class AlertProvider {
 
   constructor(
     private alertCtrl: AlertController,
-    private toastCtrl: ToastController
-  ) {
+    private toastCtrl: ToastController) {
 
   }
 
@@ -18,7 +17,6 @@ export class AlertProvider {
       position: position
     });
     toast.present();
-
   }
 
   alert(title: string, message: string): void {
@@ -27,7 +25,7 @@ export class AlertProvider {
       message: message,
       buttons: ['Ok'],
       enableBackdropDismiss: false
-    }).present;
+    }).present();
   }
 
   confirm(title: string, message: string, callBack: Function): void {
@@ -42,7 +40,7 @@ export class AlertProvider {
           }
         }
       ]
-    }).present;
+    }).present();
   }
 
 }

@@ -1,0 +1,32 @@
+<ion-content padding class="backImage">
+
+  <div class="logo">
+    <img src="/assets/imagens/icon-branco.png" alt="">
+    <span>FoodApp</span>
+  </div>
+
+  <ion-list no-lines class="list-transparent">
+    <ion-item>
+      <ion-input [(ngModel)]="user.name" type="text" placeholder="Name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="user.email" type="text" placeholder="Email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="user.password" type="password" placeholder="Password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="user.passwordConfirmation" type="password" placeholder="Password Confirmation"></ion-input>
+    </ion-item>
+  </ion-list>
+<br>
+  <ion-grid>
+    <ion-row>
+      <button ion-button block round color="secondary" (click)="register()">Register</button>
+    </ion-row>
+    <ion-row>
+      <button ion-button block outline round color="secondary" (click)="cancel()">Cancel</button>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

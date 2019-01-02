@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading } from 'ionic-angular';
 
@@ -12,15 +11,15 @@ export class LoadingProvider {
   }
 
   Show(message: string): void {
-    if(this.spinner == null){
-      this.spinner = this.loadingCtrl.create({content: (message || 'Loading...')});
+    if (this.spinner == null) {
+      this.spinner = this.loadingCtrl.create({ content: (message || 'Loading...') });
       this.spinner.present();
     } else {
       this.spinner.data.content = message;
     }
   }
 
-  Hide(): void{
+  Hide(): void {
     this.spinner.dismiss();
     this.spinner = null;
   }

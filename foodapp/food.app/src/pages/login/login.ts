@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { UserProvider } from '../../providers/user/user';
 
 @IonicPage()
 @Component({
@@ -15,15 +9,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  form: any = {};
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private userProvider: UserProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  async login(): Promise<void> {
+    let result = await this.userProvider.authenticate(this.form.email, this.form.password);
+    if (result.success) {
+      UserProvider.registerLogin(result.data);
+      this.navCtrl.setRoot('CategoryPage');
+    }
+    console.log(result);
   }
 
-  openCategory(): void{
-    this.navCtrl.setRoot('CategoryPage');
+  register(): void {
+    this.navCtrl.setRoot('RegisterPage');
   }
 
 }
