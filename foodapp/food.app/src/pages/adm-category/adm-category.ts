@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoryModel } from '../../app/models/CategoryMondel';
-import { CategoryProvider } from '../../providers/category/category';
 
 @IonicPage()
 @Component({
@@ -10,22 +9,22 @@ import { CategoryProvider } from '../../providers/category/category';
 })
 export class AdmCategoryPage {
 
-  list: Array<CategoryModel> = new Array<CategoryModel>();
+  category: CategoryModel;
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
-    private categoryProvider: CategoryProvider
-  ) {
+    public navParams: NavParams) {
 
-    this._loadData();
-  }
-
-  private async _loadData(): Promise<void> {
-    let result = await this.categoryProvider.get();
-    if (result.success) {
-      this.list = <Array<CategoryModel>>result.data;
+    let _category = this.navParams.get('_category');
+    
+    if(_category){
+      this.category = <CategoryModel>_category;
+    } else {
+      this.category = new CategoryModel();
     }
+    
   }
+
+
 
 }

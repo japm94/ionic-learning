@@ -6,8 +6,8 @@ export class LoadingProvider {
 
   private spinner: Loading = null;
 
-  constructor(public loadingCtrl: LoadingController) {
-    console.log('Hello LoadingProvider Provider');
+  constructor(
+    public loadingCtrl: LoadingController) {
   }
 
   Show(message: string): void {

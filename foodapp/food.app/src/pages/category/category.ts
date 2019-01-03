@@ -11,8 +11,8 @@ export class CategoryPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoryPage');
+  managerCategory():void{
+    this.navCtrl.push('AdmCategoriesPage');
   }
 
   openProduct(): void {

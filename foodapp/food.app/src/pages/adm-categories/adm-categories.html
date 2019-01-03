@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Categories</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addOrEdit({})">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content no-padding>
+  <ion-list lines>
+    <ion-item *ngFor="let category of list" text-wrap (click)="addOrEdit(category);">
+      {{ category.title }}
+    </ion-item>
+  </ion-list>
+</ion-content>

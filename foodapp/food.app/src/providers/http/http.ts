@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoadingProvider } from '../loading/loading';
 import { AlertProvider } from '../alert/alert';
 import { NetworkProvider } from '../network/network';
 import { HttpResultModel } from '../../app/models/HttpResultModel';
+import { UserProvider } from '../user/user';
 
 @Injectable()
 export class HttpProvider {
@@ -17,11 +18,25 @@ export class HttpProvider {
 
   }
 
-  public get(url: string): Promise<HttpResultModel> {
+  public createHeader(header?: HttpHeaders): HttpHeaders {
+    if (!header) {
+      header = new HttpHeaders();
+    }
+    header = header.append('Content-Type', 'application/json');
+    header = header.append('Accept', 'application/json');
+    let token = UserProvider.getAccessToken;
+    if (token) {
+      header = header.append('authorization', token);
+    }
+    return header;
+  }
+
+  public get(url: string, headers?: HttpHeaders): Promise<HttpResultModel> {
     this.spinnerProvider.Show('Loading...');
+    let header = this.createHeader(headers);
     return new Promise((resolve) => {
       if (this.networkProvider.isOnline) {
-        this.http.get(url)
+        this.http.get(url, { headers: header })
           .subscribe(_res => {
             this.spinnerProvider.Hide();
             resolve({ success: true, data: _res, err: undefined });
