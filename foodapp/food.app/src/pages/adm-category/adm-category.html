@@ -18,13 +18,17 @@
       <ion-input [(ngModel)]="category.title" type="Text"></ion-input>
     </ion-item>
     <ion-item>
+        <ion-label floating>Description</ion-label>
       <ion-textarea [(ngModel)]="category.description" rows="2" placeholder="Add category description"></ion-textarea>
     </ion-item>
     <ion-item text-center>
-      <button ion-button clear icon-start>
+      <button ion-button clear icon-start (click)="getPictureOption()">
         <ion-icon name="camera"></ion-icon>  
         Select Photo
       </button>
+      <ion-item *ngIf="category.photo" >
+        <img [src]="category.photo">
+      </ion-item>
     </ion-item>
   </ion-list>
 </ion-content>
