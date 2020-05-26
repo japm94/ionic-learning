@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Categories</ion-title>
+    <ion-title>Products</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="addOrEdit({})">
         <ion-icon name="add"></ion-icon>
@@ -11,7 +11,7 @@
 <ion-content no-padding>
   <ion-list lines>
     <ion-item text-wrap *ngIf="list.length == 0">
-      You have no category registered.
+      You have no products registered.
     </ion-item>
     <ion-item *ngFor="let category of list" text-wrap (click)="addOrEdit(category);">
       {{ category.title }}

@@ -31,9 +31,9 @@ export class HttpProvider {
     return header;
   }
 
-  public get(url: string, headers?: HttpHeaders): Promise<HttpResultModel> {
+  public get(url: string): Promise<HttpResultModel> {
     this.spinnerProvider.Show('Loading...');
-    let header = this.createHeader(headers);
+    let header = this.createHeader();
     return new Promise((resolve) => {
       if (this.networkProvider.isOnline) {
         this.http.get(url, { headers: header })
@@ -54,9 +54,10 @@ export class HttpProvider {
 
   public post(url: string, model: any): Promise<HttpResultModel> {
     this.spinnerProvider.Show('Saving information...');
+    let header = this.createHeader();
     return new Promise((resolve) => {
       if (this.networkProvider.isOnline) {
-        this.http.post(url, model)
+        this.http.post(url, model, { headers: header })
           .subscribe(_res => {
             this.spinnerProvider.Hide();
             resolve({ success: true, data: _res, err: undefined });
@@ -87,9 +88,10 @@ export class HttpProvider {
 
   public put(url: string, model: any): Promise<HttpResultModel> {
     this.spinnerProvider.Show('Updating information...');
+    let header = this.createHeader();
     return new Promise((resolve) => {
       if (this.networkProvider.isOnline) {
-        this.http.post(url, model)
+        this.http.post(url, model, { headers : header })
           .subscribe(_res => {
             this.spinnerProvider.Hide();
             resolve({ success: true, data: _res, err: undefined });
@@ -118,9 +120,10 @@ export class HttpProvider {
 
   public delete(url: string): Promise<HttpResultModel> {
     this.spinnerProvider.Show('Removing records...');
+    let header = this.createHeader();
     return new Promise((resolve) => {
       if (this.networkProvider.isOnline) {
-        this.http.delete(url)
+        this.http.delete(url, { headers : header })
           .subscribe(_res => {
             this.spinnerProvider.Hide();
             resolve({ success: true, data: _res, err: undefined });
